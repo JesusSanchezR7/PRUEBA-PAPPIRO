@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build
+dist/
+dist-ssr/
+*.local
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies
+bower_components/
