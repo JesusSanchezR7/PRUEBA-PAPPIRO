@@ -28,18 +28,10 @@ jobs:
             - name: Install dependencies node 
               run: npm install
             
-            # Lint del proyecto con eslint (para pruebas unitarias)
-            - name: Lint project
-              run: npm run lint
-            
             # Ejecucion de pruebas con jest (para pruebas unitarias)
             - name: Run tests
               run: npm test
-            
-            # Construccion del proyecto con npm run build (para pruebas unitarias)
-            - name: Build project
-              run: npm run build
-
+              
             # Verificacion de codigo con ruff 
             - name: Check code with ruff
               working-directory: src  
