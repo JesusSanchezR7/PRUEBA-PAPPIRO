@@ -19,18 +19,23 @@ jobs:
               uses: actions/setup-python@v3
               with:
                 python-version: "3.11"
+            
+            # Instalacion de dependencias de python
             - name: Install dependencies 
               run: pip install -r requirements.txt
-            
+
+            # Instalacion de dependencias de node
+            - name: Install dependencies node 
+              run: npm install
+
             # Verificacion de codigo con ruff 
             - name: Check code with ruff
               working-directory: src  
               run: ruff check .
             
-              # Ejecucion de pruebas con pytest
-            - name: Test with pytest 
-              working-directory: src  
-              run: pytest tests.py
+              # Ejecucion de pruebas 
+            - name: Run tests 
+              run: npm test 
               
               # Login a GitHub Container Registry 
             - name: Login to GitHub Container Registry
