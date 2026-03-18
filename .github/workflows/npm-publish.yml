@@ -29,8 +29,8 @@ jobs:
               run: npm install
             
             # Ejecucion de pruebas con jest (para pruebas unitarias)
-            #- name: Run vitest
-            #  run: npm test
+            - name: Run vitest
+              run: npm test
               
             # Verificacion de codigo con ruff 
             - name: Check code with ruff
