@@ -27,6 +27,18 @@ jobs:
             # Instalacion de dependencias de node
             - name: Install dependencies node 
               run: npm install
+            
+            # Lint del proyecto con eslint (para pruebas unitarias)
+            - name: Lint project
+              run: npm run lint
+            
+            # Ejecucion de pruebas con jest (para pruebas unitarias)
+            - name: Run tests
+              run: npm test
+            
+            # Construccion del proyecto con npm run build (para pruebas unitarias)
+            - name: Build project
+              run: npm run build
 
             # Verificacion de codigo con ruff 
             - name: Check code with ruff
@@ -34,7 +46,7 @@ jobs:
               run: ruff check .
             
                           
-              # Login a GitHub Container Registry 
+            # Login a GitHub Container Registry 
             - name: Login to GitHub Container Registry
               uses: docker/login-action@v3
               with:
@@ -42,7 +54,7 @@ jobs:
                 username: ${{ github.actor }}
                 password: ${{ secrets.GITHUB_TOKEN }}
               
-              # Construccion y push de la imagen Docker a GitHub Container 
+            # Construccion y push de la imagen Docker a GitHub Container 
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
