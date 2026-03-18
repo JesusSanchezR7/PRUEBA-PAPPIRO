@@ -27,7 +27,11 @@ jobs:
             # Instalacion de dependencias de node
             - name: Install dependencies node 
               run: npm install
-          
+            
+            # Ejecucion de pruebas con jest (para pruebas unitarias)
+            - name: Run vitest
+              run: npm test
+              
             # Verificacion de codigo con ruff 
             - name: Check code with ruff
               working-directory: src  
