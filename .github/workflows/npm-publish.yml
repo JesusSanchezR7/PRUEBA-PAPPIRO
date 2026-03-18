@@ -1,33 +1,51 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: Node.js Package
+#Acciones para testear y construir  
+#Se ejecuta cada vez que se hace un push a la rama main.
+name: Test and Build v2
 
 on:
-  release:
-    types: [created]
+    push:
+        branches: [ "main" ]
+
+permissions:
+    contents: read
+    packages: write  # Permiso para escribir en GitHub Container 
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    test_and_build: 
+        runs-on: ubuntu-latest  
+        steps: 
+            - uses: actions/checkout@v4
+            - name: Set up Python 3.11 
+              uses: actions/setup-python@v3
+              with:
+                python-version: "3.11"
+            - name: Install dependencies 
+              run: pip install -r requirements.txt
+            
+            # Verificacion de codigo con ruff 
+            - name: Check code with ruff
+              working-directory: src  
+              run: ruff check .
+            
+              # Ejecucion de pruebas con pytest
+            - name: Test with pytest 
+              working-directory: src  
+              run: pytest tests.py
+              
+              # Login a GitHub Container Registry 
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@v3
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+              
+              # Construccion y push de la imagen Docker a GitHub Container 
+            - name: Build and push
+              uses: docker/build-push-action@v6
+              with:
+                push: true
+                tags: ghcr.io/jesussanchezr7/prueba-pappiro:latest
+                    # ghcr.io/cuenta_usuario/nombre_repositorio:tag 
+                    # la etiqueta "latest" se refiere a la última versión de la imagen.
+                    # Puedes usar otras etiquetas para versiones específicas.

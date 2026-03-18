@@ -1,0 +1,11 @@
+# Este archivo requirements.txt especifica las dependencias necesarias para el proyecto.
+
+# pytest es un marco de pruebas para Python que permite escribir pruebas de manera sencilla y eficiente.
+pytest==8.3.4
+
+# Ruff es una herramienta de análisis de código estático para Python que ayuda 
+# a identificar problemas de estilo, errores potenciales y otros problemas en el código. 
+# Al incluir ruff en el archivo requirements.txt, se asegura que esta herramienta esté 
+# disponible para su uso en el proyecto, lo que puede mejorar la calidad del código y 
+# facilitar la detección de problemas antes de ejecutar las pruebas.
+ruff==0.8.1
